@@ -42,7 +42,7 @@ jobs:
         with:
           timeout_minutes: 10
           max_attempts: 3
-          command: npm ci
+          command: npm ci --ignore-scripts
           retry_on: error
         env:
           NX_DAEMON: false
@@ -91,7 +91,7 @@ jobs:
         with:
           timeout_minutes: 10
           max_attempts: 3
-          command: npm ci
+          command: npm ci --ignore-scripts
           retry_on: error
         env:
           NX_DAEMON: false
@@ -141,7 +141,7 @@ jobs:
         with:
           timeout_minutes: 10
           max_attempts: 3
-          command: npm ci
+          command: npm ci --ignore-scripts
           retry_on: error
         env:
           NX_DAEMON: false
@@ -221,7 +221,7 @@ jobs:
         with:
           timeout_minutes: 10
           max_attempts: 3
-          command: npm ci
+          command: npm ci --ignore-scripts
           retry_on: error
         env:
           NX_DAEMON: false
