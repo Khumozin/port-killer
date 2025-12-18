@@ -53,7 +53,7 @@ jobs:
         with:
           timeout_minutes: 10
           max_attempts: 3
-          command: npm ci --ignore-scripts && npm rebuild esbuild lightningcss
+          command: npm ci --ignore-scripts && npm rebuild esbuild lightningcss @tailwindcss/oxide
           retry_on: error
         env:
           NX_DAEMON: false
