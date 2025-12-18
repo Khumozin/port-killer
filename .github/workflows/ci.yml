@@ -40,10 +40,14 @@ jobs:
       - name: Install npm dependencies
         uses: nick-fields/retry@v2
         with:
-          timeout_minutes: 5
+          timeout_minutes: 10
           max_attempts: 3
           command: npm ci
           retry_on: error
+        env:
+          NX_DAEMON: false
+          NX_SKIP_NX_CACHE: true
+          CI: true
 
       - name: Check Prettier formatting
         run: npx prettier --check .
@@ -85,10 +89,14 @@ jobs:
       - name: Install npm dependencies
         uses: nick-fields/retry@v2
         with:
-          timeout_minutes: 5
+          timeout_minutes: 10
           max_attempts: 3
           command: npm ci
           retry_on: error
+        env:
+          NX_DAEMON: false
+          NX_SKIP_NX_CACHE: true
+          CI: true
 
       - name: Run npm audit
         run: npm audit --audit-level=moderate
@@ -131,10 +139,14 @@ jobs:
       - name: Install npm dependencies
         uses: nick-fields/retry@v2
         with:
-          timeout_minutes: 5
+          timeout_minutes: 10
           max_attempts: 3
           command: npm ci
           retry_on: error
+        env:
+          NX_DAEMON: false
+          NX_SKIP_NX_CACHE: true
+          CI: true
 
       - name: Run Vitest tests
         run: npm run test -- --run --coverage
@@ -207,10 +219,14 @@ jobs:
       - name: Install npm dependencies
         uses: nick-fields/retry@v2
         with:
-          timeout_minutes: 5
+          timeout_minutes: 10
           max_attempts: 3
           command: npm ci
           retry_on: error
+        env:
+          NX_DAEMON: false
+          NX_SKIP_NX_CACHE: true
+          CI: true
 
       - name: Build Angular app
         run: npm run build
