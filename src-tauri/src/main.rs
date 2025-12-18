@@ -1,10 +1,10 @@
 #![cfg_attr(
-    all(not(debug_assertions), target_os = "macos"),
-    windows_subsystem = "macos"
+    all(not(debug_assertions), target_os = "windows"),
+    windows_subsystem = "windows"
 )]
 
 use std::process::Command;
-use tauri::{command, Manager};
+use tauri::command;
 
 #[derive(serde::Serialize)]
 struct Processinfo {
