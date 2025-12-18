@@ -51,10 +51,14 @@ jobs:
       - name: Install Dependencies
         uses: nick-fields/retry@v2
         with:
-          timeout_minutes: 5
+          timeout_minutes: 10
           max_attempts: 3
-          command: npm ci
+          command: npm ci --ignore-scripts
           retry_on: error
+        env:
+          NX_DAEMON: false
+          NX_SKIP_NX_CACHE: true
+          CI: true
 
       - name: Download Angular build artifact
         id: download-artifact
