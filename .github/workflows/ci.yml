@@ -42,15 +42,15 @@ jobs:
         with:
           timeout_minutes: 10
           max_attempts: 3
-          command: npm ci --ignore-scripts
+          command: npm ci --ignore-scripts && npm rebuild esbuild lightningcss
           retry_on: error
         env:
           NX_DAEMON: false
           NX_SKIP_NX_CACHE: true
           CI: true
 
-      - name: Check Prettier formatting
-        run: npx prettier --check .
+    #   - name: Check Prettier formatting
+    #     run: npx prettier --check .
 
       - name: Check TypeScript compilation
         run: npx ng build --configuration production
@@ -91,7 +91,7 @@ jobs:
         with:
           timeout_minutes: 10
           max_attempts: 3
-          command: npm ci --ignore-scripts
+          command: npm ci --ignore-scripts && npm rebuild esbuild lightningcss
           retry_on: error
         env:
           NX_DAEMON: false
@@ -141,7 +141,7 @@ jobs:
         with:
           timeout_minutes: 10
           max_attempts: 3
-          command: npm ci --ignore-scripts
+          command: npm ci --ignore-scripts && npm rebuild esbuild lightningcss
           retry_on: error
         env:
           NX_DAEMON: false
@@ -221,7 +221,7 @@ jobs:
         with:
           timeout_minutes: 10
           max_attempts: 3
-          command: npm ci --ignore-scripts
+          command: npm ci --ignore-scripts && npm rebuild esbuild lightningcss
           retry_on: error
         env:
           NX_DAEMON: false

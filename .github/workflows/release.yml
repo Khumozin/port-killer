@@ -58,7 +58,7 @@ jobs:
         with:
           timeout_minutes: 10
           max_attempts: 3
-          command: npm ci --ignore-scripts
+          command: npm ci --ignore-scripts && npm rebuild esbuild lightningcss
           retry_on: error
         env:
           NX_DAEMON: false
