@@ -32,7 +32,7 @@
     <div class="mt-4">
         <h2 class="font-semibold">Quick ports</h2>
         <div class="flex gap-2 mt-2">
-            @for (p of commonPorts(); track p) {
+            @for (p of commonPorts(); track $index) {
             <button hlmBtn
                     variant="outline"
                     (click)="scan(p)">
