@@ -33,6 +33,9 @@
       ],
       "@spartan-ng/helm/icon": [
         "./libs/ui/icon/src/index.ts"
+      ],
+      "@spartan-ng/helm/dropdown-menu": [
+        "./libs/ui/dropdown-menu/src/index.ts"
       ]
     }
   },

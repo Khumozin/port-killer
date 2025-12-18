@@ -1,5 +1,14 @@
 <div class="p-4 max-w-xl mx-auto">
-    <h1 class="text-2xl font-bold mb-4">Port Killer</h1>
+    <div class="flex justify-between">
+        <span class="flex gap-2">
+            <h1 class="text-2xl font-bold mb-4">Port Killer</h1>
+            <ng-icon hlm
+                     name="lucideCircleOff"
+                     size="lg" />
+        </span>
+
+        <app-theme-toggle />
+    </div>
 
     <input class="w-80"
            hlmInput
@@ -34,7 +43,7 @@
     </div>
 
     @if (processes().length) {
-    <pre class="mt-6 mb-2 p-4 bg-gray-100 rounded border overflow-x-auto text-sm">{{ processesJson() }}</pre>
+    <pre class="mt-6 mb-2 p-4 bg-accent rounded border overflow-x-auto text-sm">{{ processesJson() }}</pre>
 
     <button hlmBtn
             variant="destructive"

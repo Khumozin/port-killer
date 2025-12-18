@@ -8,6 +8,10 @@ import { BrnDialogRef } from '@spartan-ng/brain/dialog';
 import { filter, take } from 'rxjs';
 import { toast } from 'ngx-sonner';
 import { Confirm } from './ui/confirm/confirm';
+import { ThemeToggle } from './core/ui/theme-toggle';
+import { provideIcons } from '@ng-icons/core';
+import { lucideCircleOff } from '@ng-icons/lucide';
+import { HlmIconImports } from '@spartan-ng/helm/icon';
 
 interface ProcessInfo {
   pid: string;
@@ -17,7 +21,8 @@ interface ProcessInfo {
 
 @Component({
   selector: 'app-root',
-  imports: [HlmInputImports, HlmButtonImports, HlmToasterImports],
+  imports: [HlmInputImports, HlmButtonImports, HlmToasterImports, HlmIconImports, ThemeToggle],
+  providers: [provideIcons({ lucideCircleOff })],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
@@ -40,7 +45,7 @@ export class App {
     this.port.set(+p);
     this.processes.set(await invoke<ProcessInfo[]>('list_processes', { port: +p }));
 
-    toast(`${this.processes().length} processes found`)
+    toast(`${this.processes().length} processes found`);
   }
 
   async killSelected() {
