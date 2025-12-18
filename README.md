@@ -1,16 +1,32 @@
 # PortKiller
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.2.
+[![CI](https://github.com/Khumozin/port-killer/actions/workflows/ci.yml/badge.svg)](https://github.com/Khumozin/port-killer/actions/workflows/ci.yml)
+[![Release](https://github.com/Khumozin/port-killer/actions/workflows/release.yml/badge.svg)](https://github.com/Khumozin/port-killer/actions/workflows/release.yml)
+[![Bundle Size](https://github.com/Khumozin/port-killer/actions/workflows/bundle-size.yml/badge.svg)](https://github.com/Khumozin/port-killer/actions/workflows/bundle-size.yml)
 
-## Development server
+A desktop application to manage and kill processes running on specific ports. Built with Angular 21 and Tauri 2.
 
-To start a local development server, run:
+## Development
+
+### Angular Development Server
+
+To start the Angular development server, run:
 
 ```bash
-ng serve
+npm start
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+
+### Tauri Development
+
+To run the full Tauri application in development mode:
+
+```bash
+npm run tauri:dev
+```
+
+This will start both the Angular dev server and the Tauri desktop application.
 
 ## Code scaffolding
 
@@ -28,13 +44,27 @@ ng generate --help
 
 ## Building
 
-To build the project run:
+### Angular Build
+
+To build the Angular application:
 
 ```bash
-ng build
+npm run build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+This will compile your project and store the build artifacts in the `dist/port-killer/browser/` directory.
+
+### Tauri Build
+
+To build the Tauri desktop application with installers:
+
+```bash
+npm run tauri:build
+```
+
+This will create platform-specific installers in the `src-tauri/target/release/bundle/` directory:
+- **macOS**: `.dmg` file
+- **Linux**: `.deb` and `.AppImage` files
 
 ## Running unit tests
 

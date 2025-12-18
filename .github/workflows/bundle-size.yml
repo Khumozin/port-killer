@@ -1,0 +1,69 @@
+name: Bundle Size
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  bundle-size:
+    name: Check Bundle Size
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.16.0'
+          cache: 'npm'
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Build Angular app
+        run: npm run build
+
+      - name: Analyze bundle size
+        uses: preactjs/compressed-size-action@v2
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: 'dist/port-killer/browser/**/*.{js,css}'
+          exclude: '{**/*.map,**/node_modules/**}'
+          build-script: 'build'
+          clean-script: 'rm -rf dist'
+
+      - name: Check bundle budgets
+        run: |
+          echo "Checking Angular bundle budgets..."
+
+          # Get the size of the main bundle
+          MAIN_BUNDLE_SIZE=$(find dist/port-killer/browser -name 'main*.js' -exec du -k {} \; | cut -f1)
+          MAIN_BUNDLE_KB=$((MAIN_BUNDLE_SIZE))
+
+          echo "Main bundle size: ${MAIN_BUNDLE_KB}KB"
+
+          # Check against budgets (500KB warning, 1MB error)
+          if [ $MAIN_BUNDLE_KB -gt 1024 ]; then
+            echo "❌ Error: Main bundle exceeds 1MB limit (${MAIN_BUNDLE_KB}KB)"
+            exit 1
+          elif [ $MAIN_BUNDLE_KB -gt 500 ]; then
+            echo "⚠️ Warning: Main bundle exceeds 500KB warning threshold (${MAIN_BUNDLE_KB}KB)"
+          else
+            echo "✅ Bundle size is within acceptable limits"
+          fi
+
+          # Check component styles (4KB warning, 8KB error)
+          STYLES_SIZE=$(find dist/port-killer/browser -name '*.css' -exec du -k {} \; | awk '{sum+=$1} END {print sum}')
+          STYLES_KB=$((STYLES_SIZE))
+
+          echo "Total styles size: ${STYLES_KB}KB"
+
+          if [ $STYLES_KB -gt 8 ]; then
+            echo "❌ Error: Styles exceed 8KB limit (${STYLES_KB}KB)"
+            exit 1
+          elif [ $STYLES_KB -gt 4 ]; then
+            echo "⚠️ Warning: Styles exceed 4KB warning threshold (${STYLES_KB}KB)"
+          else
+            echo "✅ Styles size is within acceptable limits"
+          fi
