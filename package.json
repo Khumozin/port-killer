@@ -64,6 +64,7 @@
   },
   "optionalDependencies": {
     "@nx/nx-linux-x64-gnu": "^22.3.1",
-    "@rollup/rollup-linux-x64-gnu": "^4.53.5"
+    "@rollup/rollup-linux-x64-gnu": "^4.53.5",
+    "lightningcss-linux-x64-gnu": "^1.30.2"
   }
 }
