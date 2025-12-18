@@ -21,6 +21,7 @@ jobs:
   release:
     name: Semantic Release
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     # Only run if CI workflow succeeded
     if: github.event.workflow_run.conclusion == 'success'
 
@@ -45,9 +46,15 @@ jobs:
         with:
           workspaces: src-tauri
           cache-on-failure: true
+          key: v1
 
       - name: Install Dependencies
-        run: npm ci
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 5
+          max_attempts: 3
+          command: npm ci
+          retry_on: error
 
       - name: Download Angular build artifact
         id: download-artifact

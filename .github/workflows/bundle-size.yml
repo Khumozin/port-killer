@@ -8,6 +8,7 @@ jobs:
   bundle-size:
     name: Check Bundle Size
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -19,7 +20,12 @@ jobs:
           cache: 'npm'
 
       - name: Install npm dependencies
-        run: npm ci
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 5
+          max_attempts: 3
+          command: npm ci
+          retry_on: error
 
       - name: Build Angular app
         run: npm run build
