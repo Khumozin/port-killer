@@ -1,17 +1,14 @@
-import { Component, signal, computed, inject, OnInit } from '@angular/core';
-import { invoke } from '@tauri-apps/api/core';
-import { HlmInputImports } from '@spartan-ng/helm/input';
-import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmToasterImports } from '@spartan-ng/helm/sonner';
-import { HlmDialogService } from '@spartan-ng/helm/dialog';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { BrnDialogRef } from '@spartan-ng/brain/dialog';
-import { filter, take } from 'rxjs';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmDialogService } from '@spartan-ng/helm/dialog';
+import { HlmInputImports } from '@spartan-ng/helm/input';
+import { HlmToasterImports } from '@spartan-ng/helm/sonner';
+import { invoke } from '@tauri-apps/api/core';
 import { toast } from 'ngx-sonner';
-import { Confirm } from './ui/confirm/confirm';
-import { ThemeToggle } from './core/ui/theme-toggle';
-import { provideIcons } from '@ng-icons/core';
-import { lucideCircleOff } from '@ng-icons/lucide';
-import { HlmIconImports } from '@spartan-ng/helm/icon';
+import { filter, take } from 'rxjs';
+import { Header } from './core/ui/header';
+import { Confirm } from './ui/confirm';
 
 interface ProcessInfo {
   pid: string;
@@ -21,13 +18,54 @@ interface ProcessInfo {
 
 @Component({
   selector: 'app-root',
-  imports: [HlmInputImports, HlmButtonImports, HlmToasterImports, HlmIconImports, ThemeToggle],
-  providers: [provideIcons({ lucideCircleOff })],
-  templateUrl: './app.html',
-  styleUrl: './app.css',
+  imports: [HlmInputImports, HlmButtonImports, HlmToasterImports, Header],
+
+  template: ` <div
+      class="pointer-events-none fixed top-0 left-0 z-40 h-[1380px] w-[560px] -translate-y-[350px] -rotate-45 bg-radial-(--spotlight-gradient)"
+    ></div>
+    <div class="p-4 max-w-xl mx-auto">
+      <app-header />
+
+      <input
+        class="w-80"
+        hlmInput
+        type="number"
+        placeholder="Enter port"
+        (input)="port.set($any($event.target).value)"
+      />
+
+      <div class="flex mt-2 gap-2">
+        <button hlmBtn (click)="scan()">Scan</button>
+
+        <button hlmBtn variant="destructive" (click)="killAllDevPorts()">Kill all dev ports</button>
+      </div>
+
+      <div class="mt-4">
+        <h2 class="font-semibold">Quick ports</h2>
+        <div class="flex gap-2 mt-2">
+          @for (p of commonPorts(); track $index) {
+            <button hlmBtn variant="outline" (click)="scan(p)">
+              {{ p }}
+            </button>
+          }
+        </div>
+      </div>
+
+      @if (processes().length) {
+        <pre class="mt-6 mb-2 p-4 bg-accent rounded border overflow-x-auto text-sm">{{
+          processesJson()
+        }}</pre>
+
+        <button hlmBtn variant="destructive" (click)="killSelected()">Kill processes</button>
+      }
+    </div>
+
+    <hlm-toaster />`,
+  styles: [''],
 })
 export class App implements OnInit {
   private readonly _hlmDialogService = inject(HlmDialogService);
+
   port = signal<number | null>(null);
   processes = signal<ProcessInfo[]>([]);
   commonPorts = signal<number[]>([]);
@@ -39,13 +77,15 @@ export class App implements OnInit {
   }
 
   async scan(port?: number) {
-    const p = port ?? this.port();
-    if (!p) return;
+    const _port = port ?? this.port();
+    if (!_port) return;
 
-    this.port.set(+p);
-    this.processes.set(await invoke<ProcessInfo[]>('list_processes', { port: +p }));
+    this.port.set(+_port);
+    this.processes.set(await invoke<ProcessInfo[]>('list_processes', { port: this.port() }));
 
-    toast(`${this.processes().length} processes found`);
+    if (this.processes().length === 0) {
+      toast(`${this.processes().length} processes found`);
+    }
   }
 
   async killSelected() {

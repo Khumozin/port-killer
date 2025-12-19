@@ -140,7 +140,7 @@ describe('App', () => {
 
       expect(mockInvoke).toHaveBeenCalledWith('list_processes', { port: 3000 });
       expect(component.processes()).toEqual(mockProcesses);
-      expect(mockToast).toHaveBeenCalledWith('2 processes found');
+      expect(mockToast).not.toHaveBeenCalled();
     });
 
     it('should scan specific port when parameter provided', async () => {
@@ -152,7 +152,7 @@ describe('App', () => {
       expect(mockInvoke).toHaveBeenCalledWith('list_processes', { port: 8080 });
       expect(component.port()).toBe(8080);
       expect(component.processes()).toEqual(mockProcesses);
-      expect(mockToast).toHaveBeenCalledWith('1 processes found');
+      expect(mockToast).not.toHaveBeenCalled();
     });
 
     it('should return early if port is null', async () => {
