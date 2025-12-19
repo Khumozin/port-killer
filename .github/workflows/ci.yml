@@ -49,8 +49,8 @@ jobs:
           NX_SKIP_NX_CACHE: true
           CI: true
 
-    #   - name: Check Prettier formatting
-    #     run: npx prettier --check .
+      - name: Check Prettier formatting
+        run: npx prettier --check .
 
       - name: Check TypeScript compilation
         run: npx ng build --configuration production

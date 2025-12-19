@@ -90,7 +90,7 @@ describe('Confirm', () => {
 
     it('should close dialog with true when continue button is clicked', () => {
       const continueButton = fixture.nativeElement.querySelector(
-        'button[hlmAlertDialogAction]'
+        'button[hlmAlertDialogAction]',
       ) as HTMLButtonElement;
 
       continueButton.click();
@@ -100,7 +100,7 @@ describe('Confirm', () => {
 
     it('should only call close once per click', () => {
       const continueButton = fixture.nativeElement.querySelector(
-        'button[hlmAlertDialogAction]'
+        'button[hlmAlertDialogAction]',
       ) as HTMLButtonElement;
 
       continueButton.click();
@@ -111,16 +111,14 @@ describe('Confirm', () => {
 
   describe('Dialog Cancellation', () => {
     it('should have brnDialogClose directive on cancel button', () => {
-      const cancelButton = fixture.nativeElement.querySelector(
-        'button[hlmAlertDialogCancel]'
-      );
+      const cancelButton = fixture.nativeElement.querySelector('button[hlmAlertDialogCancel]');
       expect(cancelButton?.hasAttribute('brndialogclose')).toBe(true);
     });
 
     it('should not call continue method when cancel button is clicked', () => {
       const continueSpy = vi.spyOn(component, 'continue');
       const cancelButton = fixture.nativeElement.querySelector(
-        'button[hlmAlertDialogCancel]'
+        'button[hlmAlertDialogCancel]',
       ) as HTMLButtonElement;
 
       cancelButton.click();
@@ -131,16 +129,12 @@ describe('Confirm', () => {
 
   describe('Button Styling and Attributes', () => {
     it('should have alert dialog action directive on continue button', () => {
-      const continueButton = fixture.nativeElement.querySelector(
-        'button[hlmAlertDialogAction]'
-      );
+      const continueButton = fixture.nativeElement.querySelector('button[hlmAlertDialogAction]');
       expect(continueButton?.hasAttribute('hlmalertdialogaction')).toBe(true);
     });
 
     it('should have alert dialog cancel directive on cancel button', () => {
-      const cancelButton = fixture.nativeElement.querySelector(
-        'button[hlmAlertDialogCancel]'
-      );
+      const cancelButton = fixture.nativeElement.querySelector('button[hlmAlertDialogCancel]');
       expect(cancelButton?.hasAttribute('hlmalertdialogcancel')).toBe(true);
     });
 
@@ -172,12 +166,8 @@ describe('Confirm', () => {
     });
 
     it('should have descriptive button text', () => {
-      const cancelButton = fixture.nativeElement.querySelector(
-        'button[hlmAlertDialogCancel]'
-      );
-      const continueButton = fixture.nativeElement.querySelector(
-        'button[hlmAlertDialogAction]'
-      );
+      const cancelButton = fixture.nativeElement.querySelector('button[hlmAlertDialogCancel]');
+      const continueButton = fixture.nativeElement.querySelector('button[hlmAlertDialogAction]');
 
       expect(cancelButton?.textContent?.trim()).toBeTruthy();
       expect(continueButton?.textContent?.trim()).toBeTruthy();
@@ -224,12 +214,8 @@ describe('Confirm', () => {
     });
 
     it('should provide clear action options', () => {
-      const cancelButton = fixture.nativeElement.querySelector(
-        'button[hlmAlertDialogCancel]'
-      );
-      const continueButton = fixture.nativeElement.querySelector(
-        'button[hlmAlertDialogAction]'
-      );
+      const cancelButton = fixture.nativeElement.querySelector('button[hlmAlertDialogCancel]');
+      const continueButton = fixture.nativeElement.querySelector('button[hlmAlertDialogAction]');
 
       expect(cancelButton?.textContent?.trim()).toBe('Cancel');
       expect(continueButton?.textContent?.trim()).toBe('Continue');
@@ -239,7 +225,7 @@ describe('Confirm', () => {
   describe('User Interaction', () => {
     it('should respond to continue button click', () => {
       const continueButton = fixture.nativeElement.querySelector(
-        'button[hlmAlertDialogAction]'
+        'button[hlmAlertDialogAction]',
       ) as HTMLButtonElement;
 
       expect(() => continueButton.click()).not.toThrow();
@@ -248,7 +234,7 @@ describe('Confirm', () => {
 
     it('should respond to cancel button click', () => {
       const cancelButton = fixture.nativeElement.querySelector(
-        'button[hlmAlertDialogCancel]'
+        'button[hlmAlertDialogCancel]',
       ) as HTMLButtonElement;
 
       expect(() => cancelButton.click()).not.toThrow();
@@ -256,7 +242,7 @@ describe('Confirm', () => {
 
     it('should handle multiple continue clicks', () => {
       const continueButton = fixture.nativeElement.querySelector(
-        'button[hlmAlertDialogAction]'
+        'button[hlmAlertDialogAction]',
       ) as HTMLButtonElement;
 
       continueButton.click();

@@ -190,7 +190,7 @@ describe('ThemeToggle', () => {
 
   describe('Theme Display Logic', () => {
     it('should show correct icon for each theme state', () => {
-      const themes: Array<'light' | 'dark' | 'system'> = ['light', 'dark', 'system'];
+      const themes: ('light' | 'dark' | 'system')[] = ['light', 'dark', 'system'];
       const expectedIcons = {
         light: 'lucideSun',
         dark: 'lucideMoon',
@@ -201,9 +201,7 @@ describe('ThemeToggle', () => {
         mockThemeService.theme.set(theme);
         fixture.detectChanges();
 
-        const icon = fixture.nativeElement.querySelector(
-          `ng-icon[name="${expectedIcons[theme]}"]`
-        );
+        const icon = fixture.nativeElement.querySelector(`ng-icon[name="${expectedIcons[theme]}"]`);
         expect(icon).toBeTruthy();
       });
     });
@@ -212,7 +210,9 @@ describe('ThemeToggle', () => {
       mockThemeService.theme.set('light');
       fixture.detectChanges();
 
-      const icons = fixture.nativeElement.querySelectorAll('button[data-cy="theme-toggle"] ng-icon[hlm]');
+      const icons = fixture.nativeElement.querySelectorAll(
+        'button[data-cy="theme-toggle"] ng-icon[hlm]',
+      );
       expect(icons.length).toBe(1);
     });
   });

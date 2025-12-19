@@ -63,6 +63,7 @@ npm run tauri:build
 ```
 
 This will create platform-specific installers in the `src-tauri/target/release/bundle/` directory:
+
 - **macOS**: `.dmg` file
 - **Linux**: `.deb` and `.AppImage` files
 

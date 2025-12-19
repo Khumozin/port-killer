@@ -1,12 +1,12 @@
-import { TestBed } from '@angular/core/testing';
 import { PLATFORM_ID } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ThemeService } from './theme-service';
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 
 describe('ThemeService', () => {
   let service: ThemeService;
-  let localStorageMock: { [key: string]: string };
-  let mediaQueryListeners: Array<(event: MediaQueryListEvent) => void>;
+  let localStorageMock: Record<string, string>;
+  let mediaQueryListeners: ((event: MediaQueryListEvent) => void)[];
   let mockMatchMedia: (query: string) => MediaQueryList;
 
   beforeEach(() => {
@@ -58,10 +58,7 @@ describe('ThemeService', () => {
     });
 
     TestBed.configureTestingModule({
-      providers: [
-        ThemeService,
-        { provide: PLATFORM_ID, useValue: 'browser' },
-      ],
+      providers: [ThemeService, { provide: PLATFORM_ID, useValue: 'browser' }],
     });
 
     service = TestBed.inject(ThemeService);
@@ -87,10 +84,7 @@ describe('ThemeService', () => {
       // Recreate service to test initialization
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({
-        providers: [
-          ThemeService,
-          { provide: PLATFORM_ID, useValue: 'browser' },
-        ],
+        providers: [ThemeService, { provide: PLATFORM_ID, useValue: 'browser' }],
       });
       service = TestBed.inject(ThemeService);
 
@@ -123,10 +117,7 @@ describe('ThemeService', () => {
       // Recreate service
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({
-        providers: [
-          ThemeService,
-          { provide: PLATFORM_ID, useValue: 'browser' },
-        ],
+        providers: [ThemeService, { provide: PLATFORM_ID, useValue: 'browser' }],
       });
       service = TestBed.inject(ThemeService);
 
@@ -165,7 +156,7 @@ describe('ThemeService', () => {
       service.setTheme('dark');
 
       // Wait a tick for effects to process
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise((resolve) => setTimeout(resolve, 0));
 
       expect(document.documentElement.classList.add).toHaveBeenCalledWith('dark');
     });
@@ -174,7 +165,7 @@ describe('ThemeService', () => {
       service.setTheme('light');
 
       // Wait a tick for effects to process
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise((resolve) => setTimeout(resolve, 0));
 
       expect(document.documentElement.classList.remove).toHaveBeenCalledWith('dark');
     });
@@ -229,10 +220,7 @@ describe('ThemeService', () => {
       // Recreate service
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({
-        providers: [
-          ThemeService,
-          { provide: PLATFORM_ID, useValue: 'browser' },
-        ],
+        providers: [ThemeService, { provide: PLATFORM_ID, useValue: 'browser' }],
       });
       service = TestBed.inject(ThemeService);
 
@@ -281,7 +269,7 @@ describe('ThemeService', () => {
       service.setTheme('dark');
 
       // Wait a tick for effects to process
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise((resolve) => setTimeout(resolve, 0));
 
       expect(document.documentElement.classList.add).toHaveBeenCalledWith('dark');
     });
@@ -290,7 +278,7 @@ describe('ThemeService', () => {
       service.setTheme('light');
 
       // Wait a tick for effects to process
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise((resolve) => setTimeout(resolve, 0));
 
       expect(document.documentElement.classList.remove).toHaveBeenCalledWith('dark');
     });
@@ -299,7 +287,7 @@ describe('ThemeService', () => {
       service.setTheme('system');
 
       // Wait a tick for effects to process
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise((resolve) => setTimeout(resolve, 0));
 
       // System resolves to light by default
       expect(document.documentElement.classList.remove).toHaveBeenCalledWith('dark');
@@ -317,7 +305,7 @@ describe('ThemeService', () => {
       mediaQueryListeners.forEach((listener) => listener(event));
 
       // Wait a tick for effects to process
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise((resolve) => setTimeout(resolve, 0));
 
       expect(document.documentElement.classList.add).toHaveBeenCalledWith('dark');
     });
@@ -327,10 +315,7 @@ describe('ThemeService', () => {
     beforeEach(() => {
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({
-        providers: [
-          ThemeService,
-          { provide: PLATFORM_ID, useValue: 'server' },
-        ],
+        providers: [ThemeService, { provide: PLATFORM_ID, useValue: 'server' }],
       });
       service = TestBed.inject(ThemeService);
     });
@@ -403,14 +388,11 @@ describe('ThemeService', () => {
     });
 
     it('should handle invalid stored theme gracefully', () => {
-      localStorageMock['theme'] = 'invalid' as any;
+      localStorageMock['theme'] = 'invalid' as string;
 
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({
-        providers: [
-          ThemeService,
-          { provide: PLATFORM_ID, useValue: 'browser' },
-        ],
+        providers: [ThemeService, { provide: PLATFORM_ID, useValue: 'browser' }],
       });
       service = TestBed.inject(ThemeService);
 
@@ -423,10 +405,7 @@ describe('ThemeService', () => {
 
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({
-        providers: [
-          ThemeService,
-          { provide: PLATFORM_ID, useValue: 'browser' },
-        ],
+        providers: [ThemeService, { provide: PLATFORM_ID, useValue: 'browser' }],
       });
       service = TestBed.inject(ThemeService);
 
@@ -451,10 +430,7 @@ describe('ThemeService', () => {
 
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({
-        providers: [
-          ThemeService,
-          { provide: PLATFORM_ID, useValue: 'browser' },
-        ],
+        providers: [ThemeService, { provide: PLATFORM_ID, useValue: 'browser' }],
       });
       const newService = TestBed.inject(ThemeService);
 

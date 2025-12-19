@@ -1,4 +1,4 @@
-import { Component, signal, computed, inject } from '@angular/core';
+import { Component, signal, computed, inject, OnInit } from '@angular/core';
 import { invoke } from '@tauri-apps/api/core';
 import { HlmInputImports } from '@spartan-ng/helm/input';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
@@ -26,7 +26,7 @@ interface ProcessInfo {
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
-export class App {
+export class App implements OnInit {
   private readonly _hlmDialogService = inject(HlmDialogService);
   port = signal<number | null>(null);
   processes = signal<ProcessInfo[]>([]);

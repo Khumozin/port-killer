@@ -1,0 +1,7 @@
+{
+  "tailwindCSS.classFunctions": ["hlm", "cva"],
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "always"
+  }
+}
