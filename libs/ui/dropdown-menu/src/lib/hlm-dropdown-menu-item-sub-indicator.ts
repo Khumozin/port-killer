@@ -5,18 +5,16 @@ import { hlm } from '@spartan-ng/helm/utils';
 import type { ClassValue } from 'clsx';
 
 @Component({
-	selector: 'hlm-dropdown-menu-item-sub-indicator',
-	imports: [NgIcon],
-	providers: [provideIcons({ lucideChevronRight })],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: {
-		'[class]': '_computedClass()',
-	},
-	template: `
-		<ng-icon name="lucideChevronRight" class="text-base" />
-	`,
+  selector: 'hlm-dropdown-menu-item-sub-indicator',
+  imports: [NgIcon],
+  providers: [provideIcons({ lucideChevronRight })],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '[class]': '_computedClass()',
+  },
+  template: ` <ng-icon name="lucideChevronRight" class="text-base" /> `,
 })
 export class HlmDropdownMenuItemSubIndicator {
-	public readonly userClass = input<ClassValue>('', { alias: 'class' });
-	protected readonly _computedClass = computed(() => hlm('ml-auto size-4', this.userClass()));
+  public readonly userClass = input<ClassValue>('', { alias: 'class' });
+  protected readonly _computedClass = computed(() => hlm('ml-auto size-4', this.userClass()));
 }

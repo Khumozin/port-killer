@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { BrnAlertDialogImports } from '@spartan-ng/brain/alert-dialog';
-import { BrnDialogRef, injectBrnDialogContext, BrnDialogClose } from '@spartan-ng/brain/dialog';
+import { BrnDialogClose, BrnDialogRef } from '@spartan-ng/brain/dialog';
 import { HlmAlertDialogImports } from '@spartan-ng/helm/alert-dialog';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 

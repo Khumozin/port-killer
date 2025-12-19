@@ -42,7 +42,9 @@ describe('App', () => {
         removeItem: vi.fn((key: string) => {
           delete localStorageMock[key];
         }),
-        clear: vi.fn(() => Object.keys(localStorageMock).forEach(key => delete localStorageMock[key])),
+        clear: vi.fn(() =>
+          Object.keys(localStorageMock).forEach((key) => delete localStorageMock[key]),
+        ),
         key: vi.fn(),
         length: 0,
       },
@@ -185,9 +187,7 @@ describe('App', () => {
   describe('killSelected()', () => {
     it('should open confirmation dialog with correct context', async () => {
       component.port.set(3000);
-      component.processes.set([
-        { pid: '1234', command: 'node', user: 'test' },
-      ]);
+      component.processes.set([{ pid: '1234', command: 'node', user: 'test' }]);
 
       await component.killSelected();
 
@@ -196,7 +196,7 @@ describe('App', () => {
         expect.objectContaining({
           context: { port: 3000 },
           contentClass: 'w-96',
-        })
+        }),
       );
     });
 
@@ -247,7 +247,7 @@ describe('App', () => {
         expect.objectContaining({
           context: { port: 3000 },
           contentClass: 'w-96',
-        })
+        }),
       );
     });
 
@@ -349,7 +349,7 @@ describe('App', () => {
       fixture.detectChanges();
       const buttons = fixture.nativeElement.querySelectorAll('button');
       const scanButton = Array.from(buttons).find(
-        (btn) => (btn as HTMLButtonElement).textContent?.trim() === 'Scan'
+        (btn) => (btn as HTMLButtonElement).textContent?.trim() === 'Scan',
       );
       expect(scanButton).toBeTruthy();
     });
@@ -358,7 +358,7 @@ describe('App', () => {
       fixture.detectChanges();
       const buttons = fixture.nativeElement.querySelectorAll('button');
       const killAllButton = Array.from(buttons).find((btn) =>
-        (btn as HTMLButtonElement).textContent?.includes('Kill all dev ports')
+        (btn as HTMLButtonElement).textContent?.includes('Kill all dev ports'),
       );
       expect(killAllButton).toBeTruthy();
     });
@@ -367,24 +367,18 @@ describe('App', () => {
       component.commonPorts.set([3000, 4200, 5173]);
       fixture.detectChanges();
 
-      const quickPortsSection = fixture.nativeElement.querySelector(
-        'h2.font-semibold'
-      );
+      const quickPortsSection = fixture.nativeElement.querySelector('h2.font-semibold');
       expect(quickPortsSection?.textContent).toBe('Quick ports');
 
       const buttons = fixture.nativeElement.querySelectorAll('button');
       const portButtons = Array.from(buttons).filter((btn) =>
-        ['3000', '4200', '5173'].includes(
-          (btn as HTMLButtonElement).textContent?.trim() || ''
-        )
+        ['3000', '4200', '5173'].includes((btn as HTMLButtonElement).textContent?.trim() || ''),
       );
       expect(portButtons.length).toBe(3);
     });
 
     it('should display processes when available', () => {
-      component.processes.set([
-        { pid: '1234', command: 'node', user: 'test' },
-      ]);
+      component.processes.set([{ pid: '1234', command: 'node', user: 'test' }]);
       fixture.detectChanges();
 
       const pre = fixture.nativeElement.querySelector('pre');
@@ -402,14 +396,12 @@ describe('App', () => {
     });
 
     it('should display kill processes button when processes exist', () => {
-      component.processes.set([
-        { pid: '1234', command: 'node', user: 'test' },
-      ]);
+      component.processes.set([{ pid: '1234', command: 'node', user: 'test' }]);
       fixture.detectChanges();
 
       const buttons = fixture.nativeElement.querySelectorAll('button');
       const killButton = Array.from(buttons).find((btn) =>
-        (btn as HTMLButtonElement).textContent?.includes('Kill processes')
+        (btn as HTMLButtonElement).textContent?.includes('Kill processes'),
       );
       expect(killButton).toBeTruthy();
     });
