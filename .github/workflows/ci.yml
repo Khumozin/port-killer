@@ -164,7 +164,7 @@ jobs:
           CI: true
 
       - name: Run Vitest tests
-        run: npm run test -- --run --coverage
+        run: npm run test -- --watch=false --coverage
 
       - name: Run Rust tests
         run: cd src-tauri && cargo test --all-features
