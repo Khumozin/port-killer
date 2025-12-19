@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/Khumozin/port-killer/compare/v1.0.0...v1.1.0) (2025-12-19)
+
+
+### Bug Fixes
+
+* resolve code quality issues ([985f04a](https://github.com/Khumozin/port-killer/commit/985f04a53d4c3a45e5e9fca392162cd5aa6e09e4))
+
+
+### Features
+
+* add version number to ui ([f1a08d4](https://github.com/Khumozin/port-killer/commit/f1a08d4eb27fb5dfe5ea6fc78368dd39d712bc6b))
+
 # 1.0.0 (2025-12-19)
 
 ### Bug Fixes
