@@ -128,7 +128,8 @@ mod tests {
 
     #[test]
     fn test_parse_lsof_output_with_whitespace_variations() {
-        let output = "COMMAND   PID   USER\nnode      1234  john   extra data here\npython    5678  jane";
+        let output =
+            "COMMAND   PID   USER\nnode      1234  john   extra data here\npython    5678  jane";
         let processes = parse_lsof_output(output);
         assert_eq!(processes.len(), 2);
         assert_eq!(processes[0].command, "node");
