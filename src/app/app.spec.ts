@@ -130,7 +130,13 @@ describe('App', () => {
   describe('scan()', () => {
     it('should scan port from signal when no parameter provided', async () => {
       const mockProcesses = [
-        { pid: '1234', command: 'node', user: 'test', fullCommand: 'node server.js', parentChain: [] },
+        {
+          pid: '1234',
+          command: 'node',
+          user: 'test',
+          fullCommand: 'node server.js',
+          parentChain: [],
+        },
         { pid: '5678', command: 'npm', user: 'test', fullCommand: 'npm start', parentChain: [] },
       ];
       component.port.set(3000);
@@ -144,7 +150,15 @@ describe('App', () => {
     });
 
     it('should scan specific port when parameter provided', async () => {
-      const mockProcesses = [{ pid: '9999', command: 'python', user: 'admin', fullCommand: 'python app.py', parentChain: [] }];
+      const mockProcesses = [
+        {
+          pid: '9999',
+          command: 'python',
+          user: 'admin',
+          fullCommand: 'python app.py',
+          parentChain: [],
+        },
+      ];
       mockInvoke.mockResolvedValue(mockProcesses);
 
       await component.scan(8080);
@@ -187,7 +201,15 @@ describe('App', () => {
   describe('killSelected()', () => {
     it('should open confirmation dialog with correct context', async () => {
       component.port.set(3000);
-      component.processes.set([{ pid: '1234', command: 'node', user: 'test', fullCommand: 'node server.js', parentChain: [] }]);
+      component.processes.set([
+        {
+          pid: '1234',
+          command: 'node',
+          user: 'test',
+          fullCommand: 'node server.js',
+          parentChain: [],
+        },
+      ]);
 
       await component.killSelected();
 
@@ -202,7 +224,13 @@ describe('App', () => {
 
     it('should kill processes when dialog confirms', async () => {
       const mockProcesses = [
-        { pid: '1234', command: 'node', user: 'test', fullCommand: 'node server.js', parentChain: [] },
+        {
+          pid: '1234',
+          command: 'node',
+          user: 'test',
+          fullCommand: 'node server.js',
+          parentChain: [],
+        },
         { pid: '5678', command: 'npm', user: 'test', fullCommand: 'npm start', parentChain: [] },
       ];
       component.processes.set(mockProcesses);
@@ -222,7 +250,15 @@ describe('App', () => {
     });
 
     it('should not kill processes when dialog is cancelled', async () => {
-      const mockProcesses = [{ pid: '1234', command: 'node', user: 'test', fullCommand: 'node server.js', parentChain: [] }];
+      const mockProcesses = [
+        {
+          pid: '1234',
+          command: 'node',
+          user: 'test',
+          fullCommand: 'node server.js',
+          parentChain: [],
+        },
+      ];
       component.processes.set(mockProcesses);
 
       await component.killSelected();
@@ -256,12 +292,32 @@ describe('App', () => {
 
       // Mock responses for each port
       mockInvoke
-        .mockResolvedValueOnce([{ pid: '1111', command: 'node', user: 'test', fullCommand: 'node server.js', parentChain: [] }]) // 3000
+        .mockResolvedValueOnce([
+          {
+            pid: '1111',
+            command: 'node',
+            user: 'test',
+            fullCommand: 'node server.js',
+            parentChain: [],
+          },
+        ]) // 3000
         .mockResolvedValueOnce(undefined) // kill for 3000
         .mockResolvedValueOnce([]) // 4200 (no processes)
         .mockResolvedValueOnce([
-          { pid: '2222', command: 'python', user: 'test', fullCommand: 'python app.py', parentChain: [] },
-          { pid: '3333', command: 'flask', user: 'test', fullCommand: 'flask run', parentChain: [] },
+          {
+            pid: '2222',
+            command: 'python',
+            user: 'test',
+            fullCommand: 'python app.py',
+            parentChain: [],
+          },
+          {
+            pid: '3333',
+            command: 'flask',
+            user: 'test',
+            fullCommand: 'flask run',
+            parentChain: [],
+          },
         ]) // 8080
         .mockResolvedValueOnce(undefined); // kill for 8080
 
@@ -297,7 +353,15 @@ describe('App', () => {
 
       mockInvoke
         .mockResolvedValueOnce([]) // 3000 - no processes
-        .mockResolvedValueOnce([{ pid: '1234', command: 'node', user: 'test', fullCommand: 'node server.js', parentChain: [] }]) // 4200
+        .mockResolvedValueOnce([
+          {
+            pid: '1234',
+            command: 'node',
+            user: 'test',
+            fullCommand: 'node server.js',
+            parentChain: [],
+          },
+        ]) // 4200
         .mockResolvedValueOnce(undefined); // kill for 4200
 
       await component.killAllDevPorts();
@@ -314,7 +378,6 @@ describe('App', () => {
       expect(mockInvoke).toHaveBeenCalledWith('list_processes', { port: 4200 });
     });
   });
-
 
   describe('Template Integration', () => {
     it('should display port input field', () => {
@@ -357,7 +420,15 @@ describe('App', () => {
     });
 
     it('should display processes when available', () => {
-      component.processes.set([{ pid: '1234', command: 'node', user: 'test', fullCommand: 'node server.js', parentChain: [] }]);
+      component.processes.set([
+        {
+          pid: '1234',
+          command: 'node',
+          user: 'test',
+          fullCommand: 'node server.js',
+          parentChain: [],
+        },
+      ]);
       fixture.detectChanges();
 
       const processDetail = fixture.nativeElement.querySelector('app-process-detail');
@@ -373,7 +444,15 @@ describe('App', () => {
     });
 
     it('should display kill processes button when processes exist', () => {
-      component.processes.set([{ pid: '1234', command: 'node', user: 'test', fullCommand: 'node server.js', parentChain: [] }]);
+      component.processes.set([
+        {
+          pid: '1234',
+          command: 'node',
+          user: 'test',
+          fullCommand: 'node server.js',
+          parentChain: [],
+        },
+      ]);
       fixture.detectChanges();
 
       const buttons = fixture.nativeElement.querySelectorAll('button');
