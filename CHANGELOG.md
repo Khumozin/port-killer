@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/Khumozin/port-killer/compare/v1.1.0...v1.2.0) (2026-01-06)
+
+
+### Features
+
+* add parent process chain visualization ([e4df53a](https://github.com/Khumozin/port-killer/commit/e4df53a93b74c3e99f43f8a3eff411eb339c0373))
+
 # [1.1.0](https://github.com/Khumozin/port-killer/compare/v1.0.0...v1.1.0) (2025-12-19)
 
 ### Bug Fixes
