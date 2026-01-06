@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { BrnDialogRef } from '@spartan-ng/brain/dialog';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmDialogService } from '@spartan-ng/helm/dialog';
@@ -9,16 +9,27 @@ import { toast } from 'ngx-sonner';
 import { filter, take } from 'rxjs';
 import { Header } from './core/ui/header';
 import { Confirm } from './ui/confirm';
+import { ProcessDetail } from './ui/process-detail';
+
+interface ParentProcess {
+  pid: string;
+  ppid: string;
+  command: string;
+  user: string;
+  fullCommand: string;
+}
 
 interface ProcessInfo {
   pid: string;
   command: string;
   user: string;
+  fullCommand: string;
+  parentChain: ParentProcess[];
 }
 
 @Component({
   selector: 'app-root',
-  imports: [HlmInputImports, HlmButtonImports, HlmToasterImports, Header],
+  imports: [HlmInputImports, HlmButtonImports, HlmToasterImports, Header, ProcessDetail],
 
   template: ` <div
       class="pointer-events-none fixed top-0 left-0 z-40 h-[1380px] w-[560px] -translate-y-[350px] -rotate-45 bg-radial-(--spotlight-gradient)"
@@ -52,9 +63,11 @@ interface ProcessInfo {
       </div>
 
       @if (processes().length) {
-        <pre class="mt-6 mb-2 p-4 bg-accent rounded border overflow-x-auto text-sm">{{
-          processesJson()
-        }}</pre>
+        <div class="mt-6 mb-2">
+          @for (process of processes(); track process.pid) {
+            <app-process-detail [process]="process" [port]="port()!" />
+          }
+        </div>
 
         <button hlmBtn variant="destructive" (click)="killSelected()">Kill processes</button>
       }
@@ -69,8 +82,6 @@ export class App implements OnInit {
   port = signal<number | null>(null);
   processes = signal<ProcessInfo[]>([]);
   commonPorts = signal<number[]>([]);
-
-  processesJson = computed(() => JSON.stringify(this.processes(), null, 2));
 
   async ngOnInit() {
     this.commonPorts.set(await invoke<number[]>('scan_common_ports'));
