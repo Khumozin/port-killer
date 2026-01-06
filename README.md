@@ -26,7 +26,7 @@ Built with Angular 21 and Tauri 2.
 
 ## Why Is This Running?
 
-Unlike traditional process managers that just show *what* is running, Port Killer shows you the **causal chain** - explaining exactly how a process came to exist:
+Unlike traditional process managers that just show _what_ is running, Port Killer shows you the **causal chain** - explaining exactly how a process came to exist:
 
 ```
 Process on Port 3000
@@ -45,6 +45,7 @@ Parent Process Chain:
 ```
 
 This makes debugging much faster by showing you whether a process was started by:
+
 - Your IDE or terminal
 - A process manager (PM2, systemd, etc.)
 - Docker or another container runtime
@@ -85,6 +86,7 @@ cd src-tauri && cargo test
 ## Technology Stack
 
 **Frontend:**
+
 - Angular 21 with standalone components
 - Signals for reactive state management
 - Spartan UI components (headless component library)
@@ -92,17 +94,18 @@ cd src-tauri && cargo test
 - Vitest for unit testing
 
 **Backend:**
+
 - Tauri 2 (Rust + WebView)
 - Native system commands (`lsof`, `ps`, `kill`)
 - Comprehensive Rust unit tests
 
 ## Platform Support
 
-| Platform | Status | Implementation |
-|----------|--------|----------------|
-| macOS | Fully supported | Uses `lsof`, `ps`, and `kill` commands |
-| Linux | Planned | Future release |
-| Windows | Planned | Future release |
+| Platform | Status          | Implementation                         |
+| -------- | --------------- | -------------------------------------- |
+| macOS    | Fully supported | Uses `lsof`, `ps`, and `kill` commands |
+| Linux    | Planned         | Future release                         |
+| Windows  | Planned         | Future release                         |
 
 ## How It Works
 
