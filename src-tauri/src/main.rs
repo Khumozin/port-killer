@@ -252,13 +252,16 @@ mod tests {
 
     #[test]
     fn test_get_process_info_with_valid_pid() {
-        // Test with PID 1 (launchd, always exists on macOS)
+        // Test with PID 1 (init system, always exists on Unix-like systems)
         let result = get_process_info("1");
         assert!(result.is_ok());
 
         let (ppid, command, user, _) = result.unwrap();
-        assert_eq!(ppid, "0"); // launchd's parent is 0
-        assert!(command.contains("launchd") || command.contains("init"));
+        assert_eq!(ppid, "0"); // init's parent is 0
+                               // Check for common init systems: launchd (macOS), systemd (Linux), init (older systems)
+        assert!(
+            command.contains("launchd") || command.contains("init") || command.contains("systemd")
+        );
         assert_eq!(user, "root");
     }
 
